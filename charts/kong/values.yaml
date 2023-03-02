@@ -532,8 +532,21 @@ ingressController:
   # annotations for IngressClass resource (Kubernetes 1.18+)
   ingressClassAnnotations: {}
 
-  ## Define any volumes and mounts you want present in the ingress controller container
-  ## Volumes are defined above in deployment.userDefinedVolumes
+  ## Optionally specify any extra init containers to be included in the ingress controller
+  ## See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#container-v1-core
+  # initContainers:
+  # - name: initcon
+  #   image: initcon:latest
+  # hostAliases:
+  # - ip: "127.0.0.1"
+  #   hostnames:
+  #   - "foo.local"
+  #   - "bar.local"
+
+  ## Define any volumes and mounts you want present in the Kong proxy container
+  # userDefinedVolumes:
+  # - name: "volumeName"
+  #   emptyDir: {}
   # userDefinedVolumeMounts:
   # - name: "volumeName"
   #   mountPath: "/opt/user/dir/mount"

@@ -478,6 +478,9 @@ The name of the service used for the ingress controller's validation webhook
 {{- if .Values.deployment.userDefinedVolumes }}
 {{- toYaml .Values.deployment.userDefinedVolumes }}
 {{- end }}
+{{- if .Values.ingressController.userDefinedVolumes }}
+{{- toYaml .Values.ingressController.userDefinedVolumes }}
+{{- end }}
 {{- end -}}
 
 {{- define "kong.volumes" -}}
@@ -647,7 +650,6 @@ The name of the service used for the ingress controller's validation webhook
   readOnly: true
 {{- end }}
 {{- end }}
-
 {{- range .Values.extraConfigMaps }}
 - name:  {{ .name }}
   mountPath: {{ .mountPath }}
@@ -673,6 +675,9 @@ The name of the service used for the ingress controller's validation webhook
 {{- $myList = append $myList .pluginName -}}
 {{- end -}}
 {{- range .Values.plugins.secrets -}}
+  {{ $myList = append $myList .pluginName -}}
+{{- end }}
+{{- range .Values.plugins.userDefinedVolumes -}}
   {{ $myList = append $myList .pluginName -}}
 {{- end }}
 {{- $myList | uniq | join "," -}}
