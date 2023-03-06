@@ -484,6 +484,14 @@ The name of the service used for the ingress controller's validation webhook
 {{- end -}}
 
 {{- define "kong.volumes" -}}
+{{- if .Values.secretStore.enabled }}
+- name: secrets-store-csi
+  csi:
+    driver: secrets-store.csi.k8s.io
+    readOnly: true
+    volumeAttributes:
+      secretProviderClass: {{ .Values.secretStore.secretStoreName }}
+{{- end }}
 - name: {{ template "kong.fullname" . }}-prefix-dir
   emptyDir: 
     sizeLimit: {{ .Values.deployment.prefixDir.sizeLimit }}
@@ -597,6 +605,11 @@ The name of the service used for the ingress controller's validation webhook
   mountPath: /kong_prefix/
 - name: {{ template "kong.fullname" . }}-tmp
   mountPath: /tmp
+{{- if .Values.secretStore.enabled }}
+- mountPath: {{ .Values.secretStore.mountPath }}
+  name: secrets-store-csi
+  readOnly: true
+{{- end }}
 {{- if and ( .Capabilities.APIVersions.Has "cert-manager.io/v1" ) .Values.certificates.enabled -}}
 {{- if .Values.certificates.cluster.enabled }}
 - name: {{ include "kong.fullname" . }}-cluster-cert
