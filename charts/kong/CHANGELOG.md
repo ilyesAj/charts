@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.17.0
 
 ### Improvements
 
@@ -16,6 +16,16 @@
   [#746](https://github.com/Kong/charts/pull/746)
 * Added support for annotations on the admission webhook ValidatingWebhookConfiguration.
   [#760](https://github.com/Kong/charts/pull/760)
+* Added support for `subject` and `privateKey` properties on certificates.
+  [#762](https://github.com/Kong/charts/pull/762)
+* Added support for loadBalancerClass in LoadBalancer type services.
+  [#767](https://github.com/Kong/charts/pull/767)
+* Added support for `GRPCRoute`s.
+  [#772](https://github.com/Kong/charts/pull/772)
+* Default Kong version is bumped to 3.2.
+  [#773](https://github.com/Kong/charts/pull/773)
+* Added support for admissionhook to include labels.
+  [#768](https://github.com/Kong/charts/pull/768)
 
 ### Under the hood
 

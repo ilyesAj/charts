@@ -462,7 +462,7 @@ should, however, migrate to an issuer using a CA your clients trust for actual
 usage.
 
 The `proxy`, `admin`, `portal`, and `cluster` subsections under `certificates`
-let you choose hostnames or override issuers on a per-certificate basis for the
+let you choose hostnames, override issuers, set `subject` or set `privateKey` on a per-certificate basis for the
 proxy, admin API and Manager, Portal and Portal API, and hybrid mode mTLS
 services, respectively.
 
@@ -668,6 +668,7 @@ or `ingress` sections, as it is used only for stream listens.
 | SVC.tls.parameters                 | Array of additional listen parameters                                                 | `["http2"]`              |
 | SVC.type                           | k8s service type. Options: NodePort, ClusterIP, LoadBalancer                          |                          |
 | SVC.clusterIP                      | k8s service clusterIP                                                                 |                          |
+| SVC.loadBalancerClass              | loadBalancerClass to use for LoadBalancer provisionning                               |                          |
 | SVC.loadBalancerSourceRanges       | Limit service access to CIDRs if set and service type is `LoadBalancer`               | `[]`                     |
 | SVC.loadBalancerIP                 | Reuse an existing ingress static IP for the service                                   |                          |
 | SVC.externalIPs                    | IPs for which nodes in the cluster will also accept traffic for the servic            | `[]`                     |
