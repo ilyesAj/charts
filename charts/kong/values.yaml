@@ -121,10 +121,10 @@ extraLabels: {}
 # Specify Kong's Docker image and repository details here
 image:
   repository: kong
-  tag: "3.1"
+  tag: "3.2"
   # Kong Enterprise
   # repository: kong/kong-gateway
-  # tag: "3.1"
+  # tag: "3.2"
 
   pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
@@ -141,6 +141,7 @@ admin:
   # Enterprise users that wish to use Kong Manager with the controller should enable this
   enabled: false
   type: NodePort
+  loadBalancerClass:
   # To specify annotations or labels for the admin service, add them to the respective
   # "annotations" or "labels" dictionaries below.
   annotations: {}
@@ -235,6 +236,7 @@ cluster:
     parameters: []
 
   type: ClusterIP
+  loadBalancerClass:
 
   # Kong cluster ingress settings. Useful if you want to split CP and DP
   # in different clusters.
@@ -258,6 +260,7 @@ proxy:
   # Enable creating a Kubernetes service for the proxy
   enabled: true
   type: LoadBalancer
+  loadBalancerClass:
   # Override proxy Service name
   nameOverride: ""
   # To specify annotations or labels for the proxy service, add them to the respective
@@ -346,6 +349,7 @@ udpProxy:
   # Enable creating a Kubernetes service for UDP proxying
   enabled: false
   type: LoadBalancer
+  loadBalancerClass:
   # To specify annotations or labels for the proxy service, add them to the respective
   # "annotations" or "labels" dictionaries below.
   annotations: {}
@@ -472,7 +476,7 @@ ingressController:
   enabled: true
   image:
     repository: kong/kubernetes-ingress-controller
-    tag: "2.8"
+    tag: "2.9"
     # Optionally set a semantic version for version-gated features. This can normally
     # be left unset. You only need to set this if your tag is not a semver string,
     # such as when you are using a "next" tag. Set this to the effective semantic
@@ -527,6 +531,9 @@ ingressController:
     # This is a PEM encoded CA bundle which will be used to validate the webhook certificate. If unspecified, system trust roots on the apiserver are used.
     # caBundle:
     #   | Add the CA bundle content here.
+    service:
+      # Specify custom labels for the validation webhook service.
+      labels: {}
 
   ingressClass: kong
   # annotations for IngressClass resource (Kubernetes 1.18+)
@@ -958,6 +965,7 @@ manager:
   # Enable creating a Kubernetes service for Kong Manager
   enabled: true
   type: NodePort
+  loadBalancerClass:
   # To specify annotations or labels for the Manager service, add them to the respective
   # "annotations" or "labels" dictionaries below.
   annotations: {}
@@ -1004,6 +1012,7 @@ portal:
   # Enable creating a Kubernetes service for the Developer Portal
   enabled: true
   type: NodePort
+  loadBalancerClass:
   # To specify annotations or labels for the Portal service, add them to the respective
   # "annotations" or "labels" dictionaries below.
   annotations: {}
@@ -1050,6 +1059,7 @@ portalapi:
   # Enable creating a Kubernetes service for the Developer Portal API
   enabled: true
   type: NodePort
+  loadBalancerClass:
   # To specify annotations or labels for the Portal API service, add them to the respective
   # "annotations" or "labels" dictionaries below.
   annotations: {}
@@ -1107,6 +1117,7 @@ clustertelemetry:
     parameters: []
 
   type: ClusterIP
+  loadBalancerClass:
 
   # Kong clustertelemetry ingress settings. Useful if you want to split
   # CP and DP in different clusters.
